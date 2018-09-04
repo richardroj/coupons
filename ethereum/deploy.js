@@ -3,14 +3,14 @@ const Web3 = require('web3');
 const compiledFactory = require('./build/Campaign.solCampaignFactory.json');
 const compiledFactory2 = require('./build/CryptoCoupon.solCryptoCouponFactory.json');
 
-/*const provider = new HDWalletProvider(
+const provider = new HDWalletProvider(
   'call glow acoustic vintage front ring trade assist shuffle mimic volume reject',
   'https://rinkeby.infura.io/v3/1b105baedeac46cbb0e932172d5aae62'
-);*/
-
-const provider = new Web3.providers.HttpProvider(
-  'http://localhost:8545'
 );
+/*
+const provider = new Web3.providers.HttpProvider(
+  'https://rinkeby.infura.io/v3/1b105baedeac46cbb0e932172d5aae62'
+);*/
 
 const web3 = new Web3(provider);
 
