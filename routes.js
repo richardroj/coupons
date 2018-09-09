@@ -9,6 +9,7 @@ routes
   .add('/cryptoCoupons/advancedcoupon/new', '/cryptoCoupons/advancedcoupon/new')
   .add('/cryptoCoupons/:address', '/cryptoCoupons/show')
   .add('/cryptoCoupons/:address/coupons', '/cryptoCoupons/coupons/index')
+  .add('/cryptoCoupons/:address/couponsSale', '/cryptoCoupons/couponsSale/index')
   .add('/cryptoCoupons/:address/coupons/new', '/cryptoCoupons/coupons/new');
 
 module.exports = routes;

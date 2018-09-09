@@ -7,13 +7,15 @@ if (typeof window !== 'undefined' && typeof window.web3 !== 'undefined') {
   web3 = new Web3(window.web3.currentProvider);
 } else {
   // We are on the server *OR* the user is not running metamask
-  /*const provider = new Web3.providers.HttpProvider(
-    'https://rinkeby.infura.io/v3/1b105baedeac46cbb0e932172d5aae62'
-  );*/
+  /*const provider = new HDWalletProvider(
+  'call glow acoustic vintage front ring trade assist shuffle mimic volume reject',
+  'https://rinkeby.infura.io/v3/1b105baedeac46cbb0e932172d5aae62'
+	);*/
+
   const provider = new HDWalletProvider(
   'call glow acoustic vintage front ring trade assist shuffle mimic volume reject',
   'https://rinkeby.infura.io/v3/1b105baedeac46cbb0e932172d5aae62'
-);
+	);
   web3 = new Web3(provider);
 }
 

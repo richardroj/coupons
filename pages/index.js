@@ -32,14 +32,14 @@ class CryptoCouponIndex extends Component {
     return (
       <Layout>
         <div>
-          <h3>Open CryptoCoupons</h3>
+          <h3>Open Companies</h3>
 
 
           <Link route="/cryptoCoupons/new">
             <a>
               <Button
                 floated="right"
-                content="Create CryptoCoupon"
+                content="Create Company"
                 icon="add circle"
                 primary
               />

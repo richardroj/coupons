@@ -63,7 +63,7 @@ class CryptoCouponShow extends Component {
   render() {
     return (
       <Layout>
-        <h3>CryptoCoupon Show</h3>
+        <h3>Company Show</h3>
         <Grid>
           <Grid.Row>
             <Grid.Column width={10}>{this.renderCards()}</Grid.Column>
@@ -78,6 +78,15 @@ class CryptoCouponShow extends Component {
               <Link route={`/cryptoCoupons/${this.props.address}/coupons`}>
                 <a>
                   <Button primary>View Coupons</Button>
+                </a>
+              </Link>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>
+              <Link route={`/cryptoCoupons/${this.props.address}/couponsSale`}>
+                <a>
+                  <Button primary>View Coupons for Sale</Button>
                 </a>
               </Link>
             </Grid.Column>

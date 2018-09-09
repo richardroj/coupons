@@ -10,6 +10,7 @@ class CouponIndex extends Component {
     const { address } = props.query;
     const cryptoCoupon = CryptoCoupon(address);
     const couponCount = await cryptoCoupon.methods.getCouponsCount().call();
+    const couponsSaleCount = await cryptoCoupon.methods.getCouponsSaleCount().call();
     //const approversCount = await campaign.methods.approversCount().call();
 
     const coupons = await Promise.all(
@@ -19,8 +20,24 @@ class CouponIndex extends Component {
           return cryptoCoupon.methods.coupons(index).call();
         })
     );
+    
+    const couponsSale = await Promise.all(
+      Array(parseInt(couponsSaleCount))
+        .fill()
+        .map((element, index) => {
+          return cryptoCoupon.methods.couponsSale(index).call();
+        })
+    );
 
-    return { address, coupons, couponCount };
+    for (var i = couponsSale.length - 1; i >= 0; i--) {
+      for (var j = coupons.length - 1; j >= 0; j--) {
+        if(coupons[j].serialNumber == couponsSale[i].serialNumber){
+          delete coupons[i];
+        }
+      }
+      
+    }
+    return { address, coupons, couponCount};
   }
 
   renderRows() {

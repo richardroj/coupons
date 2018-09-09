@@ -20,7 +20,7 @@ class CryptoCouponNew extends Component {
 
     try {
       const accounts = await web3.eth.getAccounts();
-
+      console.log("from account:  "+accounts[0]);
       await factory.methods
         .createCryptoCoupon(this.state.name, this.state.address)
         .send({
