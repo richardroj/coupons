@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Table, Button } from 'semantic-ui-react';
 import web3 from '../ethereum/web3';
 import CryptoCoupon from '../ethereum/cryptoCoupon';
+import { Link } from '../routes';
 
 class CouponSaleRow extends Component {
 
@@ -38,7 +39,7 @@ class CouponSaleRow extends Component {
     //const readyToFinalize = request.approvalCount > approversCount / 2;
 
     return (
-      <Row disabled = {coupon.gift} >
+      <Row>
         <Cell>{id}</Cell>
         <Cell>{coupon.name}</Cell>
         <Cell>{coupon.description}</Cell>
@@ -48,10 +49,13 @@ class CouponSaleRow extends Component {
         <Cell>{web3.utils.fromWei(coupon.value, 'ether')}</Cell>
        
         <Cell>
-          
-            <Button color="green" basic onClick={this.onPurchase}>
-              Comprar
-            </Button>
+            <Link route={`/cryptoCoupons/${this.props.address}/couponsSale/buy/${coupon.serialNumber}`}>
+                <a>
+                  <Button color="green" basic>Comprar
+                  </Button>
+                </a>
+              </Link>
+            
           
         </Cell>
        

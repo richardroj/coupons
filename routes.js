@@ -10,6 +10,6 @@ routes
   .add('/cryptoCoupons/:address', '/cryptoCoupons/show')
   .add('/cryptoCoupons/:address/coupons', '/cryptoCoupons/coupons/index')
   .add('/cryptoCoupons/:address/couponsSale', '/cryptoCoupons/couponsSale/index')
-  .add('/cryptoCoupons/:address/coupons/new', '/cryptoCoupons/coupons/new');
-
+  .add('/cryptoCoupons/:address/coupons/new', '/cryptoCoupons/coupons/new')
+  .add('/cryptoCoupons/:address/couponsSale/buy/:serialNumber', '/cryptoCoupons/couponsSale/buy');
 module.exports = routes;

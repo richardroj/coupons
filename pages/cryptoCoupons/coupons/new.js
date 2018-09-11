@@ -31,16 +31,22 @@ class CouponNew extends Component {
     this.setState({ loading: true, errorMessage: '' });
 
     try {
-        const accounts = await web3.eth.getAccounts();
-       await cryptoCoupon.methods
-        .AccessControle()
-        .send({
-          from: accounts[0], gas: '100000'
-        });
 
-      await cryptoCoupon.methods
-        .createToken(this.state.name, this.state.description, this.state.gift, this.state.value)
-        .send({ from: accounts[0], gas: '300000' });
+        const accounts = await web3.eth.getAccounts();
+        console.log("creating coupon: "+ accounts[0]);
+        if(accounts[0]==this.props.address){
+          await cryptoCoupon.methods
+            .AccessControle()
+            .send({
+              from: this.props.address, gas: '100000'
+            });
+
+          await cryptoCoupon.methods
+            .createToken(this.state.name, this.state.description, this.state.gift, this.state.value)
+            .send({ from: this.props.address, gas: '300000' });
+        }else{
+          this.setState({ errorMessage: "You don't have address manager" });
+        }
 
       Router.pushRoute(`/cryptoCoupons/${this.props.address}/coupons`);
     } catch (err) {

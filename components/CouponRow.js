@@ -21,15 +21,19 @@ class CouponRow extends Component {
     const accounts = await web3.eth.getAccounts();
 
     console.log("account"+accounts[0]);
-    await cryptoCoupon.methods
-        .AccessControle()
-        .send({
-          from: accounts[0], gas: '100000'
-        });
+    if(accounts[0]==this.props.address){
+      await cryptoCoupon.methods
+          .AccessControle()
+          .send({
+            from: accounts[0], gas: '100000'
+          });
 
-    await cryptoCoupon.methods.setCouponToSale(this.props.id).send({
-      from: accounts[0], gas:'300000'
-    });
+      await cryptoCoupon.methods.setCouponToSale(this.props.id).send({
+        from: accounts[0], gas:'300000'
+      });
+    }else{
+      console.log("You don't have account manager");
+    }
   };
 
   render() {
