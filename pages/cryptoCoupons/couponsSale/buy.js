@@ -7,6 +7,17 @@ import { Router } from '../../../routes';
 
 class CryptoCouponBuy extends Component {
 
+  static async getInitialProps(props) {
+    
+     //const { serialNumber } = this.props.match.params;
+     const { address } = props.query;
+     const { serialNumber } = props.query;
+    console.log("props:"+address);
+    return {
+      address, serialNumber
+      
+    };
+  }
   
   state = {
     serialNumber: '',
@@ -16,13 +27,15 @@ class CryptoCouponBuy extends Component {
   };
 
   onSubmit = async event => {
-    event.preventDefault();
+    console.log("Add method to buy coupon");
+    this.setState({ errorMessage: "Add method to buy coupon" });
+    /*event.preventDefault();
 
     this.setState({ loading: true, errorMessage: '' });
 
     try {
       const accounts = await web3.eth.getAccounts();
-      console.log("from account:  "+accounts[0]);
+      console.log("buying from account:  "+accounts[0]);
       await factory.methods
         .createCryptoCoupon(this.state.serialNumber, this.state.address)
         .send({
@@ -36,7 +49,7 @@ class CryptoCouponBuy extends Component {
       this.setState({ errorMessage: err.message });
     }
 
-    this.setState({ loading: false });
+    this.setState({ loading: false });*/
   };
 
   render() {
@@ -54,7 +67,7 @@ class CryptoCouponBuy extends Component {
             />
             <label>Address</label>
             <Input
-              value={this.state.address}
+              value={this.props.address}
               onChange={event =>
                 this.setState({ address: event.target.value })}
             />
