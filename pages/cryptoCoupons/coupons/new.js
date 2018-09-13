@@ -18,13 +18,18 @@ class CouponNew extends Component {
 
   static async getInitialProps(props) {
     const { address } = props.query;
+    const cryptoCoupon = CryptoCoupon(address);
+    const summary = await cryptoCoupon.methods.getSummary().call();
 
-    return { address };
+    return {
+      address: props.query.address,
+      manager: summary[3]
+    };
   }
 
   onSubmit = async event => {
     event.preventDefault();
-    console.log("creating contract: "+ this.props.address);
+    console.log("creating contract: "+ this.props.manager);
     const cryptoCoupon = CryptoCoupon(this.props.address);
     const { name, description, gift, value } = this.state;
 
@@ -34,16 +39,16 @@ class CouponNew extends Component {
 
         const accounts = await web3.eth.getAccounts();
         console.log("creating coupon: "+ accounts[0]);
-        if(accounts[0]==this.props.address){
+        if(accounts[0]==this.props.manager){
           await cryptoCoupon.methods
             .AccessControle()
             .send({
-              from: this.props.address, gas: '100000'
+              from: this.props.manager, gas: '100000'
             });
 
           await cryptoCoupon.methods
             .createToken(this.state.name, this.state.description, this.state.gift, this.state.value)
-            .send({ from: this.props.address, gas: '300000' });
+            .send({ from: this.props.manager, gas: '300000' });
         }else{
           this.setState({ errorMessage: "You don't have address manager" });
         }

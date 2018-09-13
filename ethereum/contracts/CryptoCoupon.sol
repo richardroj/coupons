@@ -368,7 +368,12 @@
        function generateWinnerOfToken(uint256 _tokenId) public onlyCLevel returns (address) {
             require(tokenIdToOwner[_tokenId] == ceoAddress || tokenIdToOwner[_tokenId] == ceoAddress);
             address playerWinner = _winnerAddress();
+            
             transfer(playerWinner, _tokenId);
+            for(uint256 i = 0; i < couponsRaffle.length; i++){
+                if(couponsRaffle[i].serialNumber==_tokenId)
+                    delete couponsRaffle[i];
+            }
             return playerWinner;
        }
        
@@ -429,8 +434,25 @@
                 if(couponsRaffle[i].serialNumber==_serialNumber)
                     delete couponsRaffle[i];
             }
-            
-       
+  
+        }
+        
+        // Entering to Lottery and allowing a player to participate just once
+        function addPlayer(address _player) public {
+            require(!checkPlayerExists(_player));
+            players.push(_player);
+        }      
+        
+        function getPlayersCount() public view returns (uint) {
+            return players.length;
+        }
+        
+        function deletePlayer(address _player) public {
+            for(uint256 i = 0; i < players.length; i++){
+                if(players[i]==_player)
+                    delete players[i];
+            }
+             
         }
        
     

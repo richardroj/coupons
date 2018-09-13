@@ -91,6 +91,15 @@ class CryptoCouponShow extends Component {
               </Link>
             </Grid.Column>
           </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>
+              <Link route={`/cryptoCoupons/${this.props.address}/lottery`}>
+                <a>
+                  <Button primary>Lottery</Button>
+                </a>
+              </Link>
+            </Grid.Column>
+          </Grid.Row>
         </Grid>
       </Layout>
     );

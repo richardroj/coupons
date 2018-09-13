@@ -11,5 +11,7 @@ routes
   .add('/cryptoCoupons/:address/coupons', '/cryptoCoupons/coupons/index')
   .add('/cryptoCoupons/:address/couponsSale', '/cryptoCoupons/couponsSale/index')
   .add('/cryptoCoupons/:address/coupons/new', '/cryptoCoupons/coupons/new')
-  .add('/cryptoCoupons/:address/couponsSale/buy/:serialNumber', '/cryptoCoupons/couponsSale/buy');
+  .add('/cryptoCoupons/:address/couponsSale/buy/:serialNumber', '/cryptoCoupons/couponsSale/buy')
+  .add('/cryptoCoupons/:address/lottery', '/cryptoCoupons/lottery/show')
+  .add('/cryptoCoupons/:address/lottery/players/new', '/cryptoCoupons/lottery/players/new');
 module.exports = routes;
