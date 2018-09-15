@@ -2,26 +2,41 @@ import React, { Component } from 'react';
 import { Table, Button } from 'semantic-ui-react';
 import web3 from '../ethereum/web3';
 import CryptoCoupon from '../ethereum/cryptoCoupon';
+import { Router } from '../routes';
 
 class CouponRow extends Component {
 
-  onFinalize = async () => {
-    const cryptoCoupon = CryptoCoupon(this.props.address);
 
+  onRaffle = async () => {
+    
+    const cryptoCoupon = CryptoCoupon(this.props.address);
+    const summary = await cryptoCoupon.methods.getSummary().call();
     const accounts = await web3.eth.getAccounts();
-    await cryptoCoupon.methods.finalizeRequest(this.props.id).send({
-      from: accounts[0]
-    });
+
+    if(accounts[0]==summary[3]){
+      await cryptoCoupon.methods
+          .AccessControle()
+          .send({
+            from: accounts[0], gas: '100000'
+          });
+
+      await cryptoCoupon.methods.setCouponToRaffle(this.props.id).send({
+        from: accounts[0], gas:'300000'
+      });
+      Router.pushRoute(`/cryptoCoupons/${this.props.address}/coupons`);
+    }else{
+      console.log("You don't have account manager");
+    }
   };
 
   onSale = async () => {
-    console.log("selling");
+    
     const cryptoCoupon = CryptoCoupon(this.props.address);
-
+    const summary = await cryptoCoupon.methods.getSummary().call();
     const accounts = await web3.eth.getAccounts();
-
+    console.log("selling"+summary[3]);
     console.log("account"+accounts[0]);
-    if(accounts[0]==this.props.address){
+    if(accounts[0]==summary[3]){
       await cryptoCoupon.methods
           .AccessControle()
           .send({
@@ -31,6 +46,7 @@ class CouponRow extends Component {
       await cryptoCoupon.methods.setCouponToSale(this.props.id).send({
         from: accounts[0], gas:'300000'
       });
+      Router.pushRoute(`/cryptoCoupons/${this.props.address}/coupons`);
     }else{
       console.log("You don't have account manager");
     }
@@ -61,8 +77,8 @@ class CouponRow extends Component {
 
         <Cell>
           {coupon.gift ? (
-            <Button color="teal" basic >
-              Burn
+            <Button color="teal" basic onClick={this.onRaffle}>
+              Raffle
             </Button>
           ) : null}
         </Cell>

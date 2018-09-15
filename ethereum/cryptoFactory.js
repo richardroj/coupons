@@ -3,7 +3,7 @@ import CryptoCouponFactory from './build/CryptoCoupon.solCryptoCouponFactory.jso
 
 const instance = new web3.eth.Contract(
   JSON.parse(CryptoCouponFactory.interface),
-  '0x4603006eDC89905c783cd1b40F4bE7c312c256B8'
+  '0x31dEC21b129171162c24817668B18c607480F7e0'
 );
 
 export default instance;

@@ -8,10 +8,11 @@ import CouponRow from '../../../components/CouponRow';
 class CouponIndex extends Component {
   static async getInitialProps(props) {
     const { address } = props.query;
+    console.log("address"+props.query.address);
     const cryptoCoupon = CryptoCoupon(address);
     const couponCount = await cryptoCoupon.methods.getCouponsCount().call();
     const couponsSaleCount = await cryptoCoupon.methods.getCouponsSaleCount().call();
-    //const approversCount = await campaign.methods.approversCount().call();
+    const couponsRaffleCount = await cryptoCoupon.methods.getCouponsRaffleCount().call();
 
     const coupons = await Promise.all(
       Array(parseInt(couponCount))
@@ -29,14 +30,34 @@ class CouponIndex extends Component {
         })
     );
 
-    for (var i = couponsSale.length - 1; i >= 0; i--) {
-      for (var j = coupons.length - 1; j >= 0; j--) {
-        if(coupons[j].serialNumber == couponsSale[i].serialNumber){
-          delete coupons[i];
+    const couponsRaffle = await Promise.all(
+      Array(parseInt(couponsRaffleCount))
+        .fill()
+        .map((element, index) => {
+          return cryptoCoupon.methods.couponsRaffle(index).call();
+        })
+    );
+    if(couponsSale.length > 0){
+      for (var i = couponsSale.length - 1; i >= 0; i--) {
+        for (var j = coupons.length - 1; j >= 0; j--) {
+          if(coupons[j].serialNumber == couponsSale[i].serialNumber){
+            delete coupons[i];
+          }
         }
+        
       }
-      
     }
+    console.log("raffles: "+couponsRaffle.length);
+    /*if(couponsRaffle.length > 0){
+      for (var i = couponsRaffle.length - 1; i >= 0; i--) {
+        for (var j = coupons.length - 1; j >= 0; j--) {
+          if(coupons[j].serialNumber == couponsRaffle[i].serialNumber){
+            delete coupons[i];
+          }
+        }
+        
+      }
+    }*/
     return { address, coupons, couponCount};
   }
 
@@ -45,7 +66,7 @@ class CouponIndex extends Component {
       return (
         <CouponRow
           key={index}
-          id={index}
+          id={coupon.serialNumber}
           coupon={coupon}
           address={this.props.address}
           

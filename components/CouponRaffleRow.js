@@ -4,7 +4,7 @@ import web3 from '../ethereum/web3';
 import CryptoCoupon from '../ethereum/cryptoCoupon';
 import { Link } from '../routes';
 
-class CouponSaleRow extends Component {
+class CouponRaffleRow extends Component {
 
   onFinalize = async () => {
     const cryptoCoupon = CryptoCoupon(this.props.address);
@@ -15,8 +15,8 @@ class CouponSaleRow extends Component {
     });
   };
 
-  onPurchase = async () => {
-    console.log("Buying Coupon");
+  onRaffle = async () => {
+    console.log("raffling Coupon");
     /*const cryptoCoupon = CryptoCoupon(this.props.address);
 
     const accounts = await web3.eth.getAccounts();
@@ -51,7 +51,7 @@ class CouponSaleRow extends Component {
         <Cell>
             <Link route={`/cryptoCoupons/${this.props.address}/couponsSale/buy/${coupon.serialNumber}`}>
                 <a>
-                  <Button color="green" basic>Buy
+                  <Button color="green" basic>Raffle
                   </Button>
                 </a>
               </Link>
@@ -65,4 +65,4 @@ class CouponSaleRow extends Component {
   }
 }
 
-export default CouponSaleRow;
+export default CouponRaffleRow;

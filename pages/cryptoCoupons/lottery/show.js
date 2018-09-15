@@ -5,33 +5,42 @@ import CryptoCoupon from '../../../ethereum/cryptoCoupon';
 import web3 from '../../../ethereum/web3';
 //import ContributeForm from '../../components/ContributeForm';
 import { Link } from '../../../routes';
-import CouponSaleRow from '../../../components/CouponSaleRow';
+import CouponRaffleRow from '../../../components/CouponRaffleRow';
 
 class LotteryShow extends Component {
   static async getInitialProps(props) {
-    const cryptoCoupon = CryptoCoupon(props.query.address);
+    const { address } = props.query;
+    console.log("address:"+address);
+    const cryptoCoupon = CryptoCoupon(address);
 
-    const couponCount = 0;//await cryptoCoupon.methods.getCouponsRaffleCount.call();
-    const playersCount = 0;//await cryptoCoupon.methods.getPlayersCount().call();
-     const coupons = await Promise.all(
+    const couponCount = await cryptoCoupon.methods.getCouponsRaffleCount().call();
+
+    const pCount = await cryptoCoupon.methods.getPlayersCount().call();
+
+    const playersCount = parseInt(pCount);
+
+    const coupons = await Promise.all(
       Array(parseInt(couponCount))
         .fill()
         .map((element, index) => {
-          return cryptoCoupon.methods.couponsSale(index).call();
+          return cryptoCoupon.methods.couponsRaffle(index).call();
         })
     );
 
+   
+     console.log("count raffle:"+coupons.length);
     return {
       couponCount,
       playersCount,
-      coupons
+      coupons,
+      address
     };
   }
 
   renderRows() {
     return this.props.coupons.map((coupon, index) => {
       return (
-        <CouponSaleRow
+        <CouponRaffleRow
           key={index}
           id={index}
           coupon={coupon}
