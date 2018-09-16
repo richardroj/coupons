@@ -20,10 +20,10 @@ class CouponRow extends Component {
             from: accounts[0], gas: '100000'
           });
 
-      await cryptoCoupon.methods.setCouponToRaffle(this.props.id).send({
+      await cryptoCoupon.methods.setCouponToRaffle(this.props.coupon.serialNumber).send({
         from: accounts[0], gas:'300000'
       });
-      Router.pushRoute(`/cryptoCoupons/${this.props.address}/coupons`);
+      Router.pushRoute(`/cryptoCoupons/${this.props.address}`);
     }else{
       console.log("You don't have account manager");
     }
@@ -43,10 +43,10 @@ class CouponRow extends Component {
             from: accounts[0], gas: '100000'
           });
 
-      await cryptoCoupon.methods.setCouponToSale(this.props.id).send({
+      await cryptoCoupon.methods.setCouponToSale(this.props.coupon.serialNumber).send({
         from: accounts[0], gas:'300000'
       });
-      Router.pushRoute(`/cryptoCoupons/${this.props.address}/coupons`);
+      Router.pushRoute(`/cryptoCoupons/${this.props.address}`);
     }else{
       console.log("You don't have account manager");
     }
@@ -59,7 +59,7 @@ class CouponRow extends Component {
 
     return (
       <Row>
-        <Cell>{id}</Cell>
+        <Cell>{coupon.serialNumber}</Cell>
         <Cell>{coupon.name}</Cell>
         <Cell>{coupon.description}</Cell>
         <Cell>

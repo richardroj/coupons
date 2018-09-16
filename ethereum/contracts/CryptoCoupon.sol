@@ -90,7 +90,7 @@
         function _createToken(string _name, string _description, uint256 _serialNumber, bool _gift, uint _fee,
                 uint8 _value, address _owner, uint256 _price) private {
                     _owner = owner;
-                    cont++;
+                    
             Coupon memory _Coupon = Coupon({
                 name: _name,
                 description: _description,
@@ -100,7 +100,8 @@
                 value: _value
             });
             
-            uint256 newTokenId = coupons.push(_Coupon) - 1;
+            uint256 newTokenId =  coupons.push(_Coupon) - 1;
+            cont++;
             tokenIdToPrice[newTokenId] = _price;
         
             emit TokenCreated(newTokenId, _name, _serialNumber, _price, _owner);
@@ -368,8 +369,14 @@
        function generateWinnerOfToken(uint256 _tokenId) public onlyCLevel returns (address) {
             require(tokenIdToOwner[_tokenId] == ceoAddress || tokenIdToOwner[_tokenId] == ceoAddress);
             address playerWinner = _winnerAddress();
-            
-            transfer(playerWinner, _tokenId);
+            //it fails
+             uint256 index;
+            for(uint256 j = 0; j < coupons.length; j++){
+                if(coupons[j].serialNumber==_tokenId)
+                    index = j;
+            }
+             
+            transfer(playerWinner, index);
             for(uint256 i = 0; i < couponsRaffle.length; i++){
                 if(couponsRaffle[i].serialNumber==_tokenId)
                     delete couponsRaffle[i];
@@ -406,7 +413,12 @@
                 if(couponsSale[i].serialNumber==_serialNumber)
                     return;
             }
-             couponsSale.push(coupons[_serialNumber]);
+            uint256 index;
+            for(uint256 j = 0; j < coupons.length; j++){
+                if(coupons[j].serialNumber==_serialNumber)
+                    index = j;
+            }
+             couponsSale.push(coupons[index]);
        
         }
         
@@ -424,7 +436,12 @@
                 if(couponsRaffle[i].serialNumber==_serialNumber)
                     return;
             }
-             couponsRaffle.push(coupons[_serialNumber]);
+            uint256 index;
+            for(uint256 j = 0; j < coupons.length; j++){
+                if(coupons[j].serialNumber==_serialNumber)
+                    index = j;
+            }
+             couponsRaffle.push(coupons[index]);
        
         }
         

@@ -29,7 +29,7 @@ class CryptoCouponPlayer extends Component {
 
   onSubmit = async event => {
     event.preventDefault();
-    console.log("adding address: "+ this.props. address);
+    console.log("adding address: "+ this.props.address);
     const cryptoCoupon = CryptoCoupon(this.props.address);
     
 
@@ -40,20 +40,20 @@ class CryptoCouponPlayer extends Component {
         const accounts = await web3.eth.getAccounts();
         console.log("creating coupon: "+ accounts[0]);
         if(accounts[0]==this.props.manager){
-          await cryptoCoupon.methods
+          /*await cryptoCoupon.methods
             .AccessControle()
             .send({
               from: this.props.manager, gas: '100000'
-            });
+            });*/
 
           await cryptoCoupon.methods
             .addPlayer(this.state.address)
-            .send({ from: this.props.manager, gas: '300000' });
+            .send({ from: accounts[0], gas: '100000' });
         }else{
           this.setState({ errorMessage: "You don't have address manager" });
         }
 
-      Router.pushRoute(`/cryptoCoupons/${address}/lottery`);
+      Router.pushRoute(`/cryptoCoupons/${this.props.address}/lottery`);
     } catch (err) {
       this.setState({ errorMessage: err.message });
     }

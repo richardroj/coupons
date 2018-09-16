@@ -28,7 +28,7 @@ class LotteryShow extends Component {
     );
 
    
-     console.log("count raffle:"+coupons.length);
+     console.log("count raffle:"+coupons[0].serialNumber);
     return {
       couponCount,
       playersCount,
@@ -41,8 +41,8 @@ class LotteryShow extends Component {
     return this.props.coupons.map((coupon, index) => {
       return (
         <CouponRaffleRow
-          key={index}
-          id={index}
+          key={coupon.serialNumber}
+          id={coupon.serialNumber}
           coupon={coupon}
           address={this.props.address}
           
@@ -65,12 +65,12 @@ class LotteryShow extends Component {
         header: playersCount,
         meta: 'Number of Players',
         description:
-          'The manager created this coupon',
+          'Players',
         style: { overflowWrap: 'break-word' }
       },
       {
         header: couponCount,
-        meta: 'Number of Coupons',
+        meta: 'Coupons available for raffle',
         description:
           'Coupons'
       }
@@ -94,11 +94,7 @@ class LotteryShow extends Component {
           </Grid.Row>
 
           <Grid.Row>
-            <Grid.Column width={5}>
-                <a>
-                  <Button primary>Get Winner</Button>
-                </a>
-            </Grid.Column>
+            
             <Grid.Column width={6}>
               <Link route={`/cryptoCoupons/${this.props.address}/lottery/players/new`}>
                 <a>
@@ -123,7 +119,8 @@ class LotteryShow extends Component {
                   <HeaderCell>Description</HeaderCell>
                   <HeaderCell>Serial Number</HeaderCell>
                   <HeaderCell>Value</HeaderCell>
-                  <HeaderCell>Approve</HeaderCell>
+                  <HeaderCell>Action</HeaderCell>
+                  <HeaderCell>Winner</HeaderCell>
                 </Row>
               </Header>
               <Body>{this.renderRows()}</Body>

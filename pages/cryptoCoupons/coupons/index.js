@@ -37,22 +37,22 @@ class CouponIndex extends Component {
           return cryptoCoupon.methods.couponsRaffle(index).call();
         })
     );
-    if(couponsSale.length > 0){
-      for (var i = couponsSale.length - 1; i >= 0; i--) {
-        for (var j = coupons.length - 1; j >= 0; j--) {
+    /*if(couponsSale.length > 0){
+      for (var i = 0; i < couponsSale.length; i++) {
+        for (var j = 0; j < coupons.length; j++) {
           if(coupons[j].serialNumber == couponsSale[i].serialNumber){
-            delete coupons[i];
+            delete coupons[j];
           }
         }
         
       }
     }
     console.log("raffles: "+couponsRaffle.length);
-    /*if(couponsRaffle.length > 0){
-      for (var i = couponsRaffle.length - 1; i >= 0; i--) {
-        for (var j = coupons.length - 1; j >= 0; j--) {
+    if(couponsRaffle.length > 0){
+      for (var i = 0 ; i < couponsRaffle.length; i++) {
+        for (var j = 0; j < coupons.length; j++) {
           if(coupons[j].serialNumber == couponsRaffle[i].serialNumber){
-            delete coupons[i];
+            delete coupons[j];
           }
         }
         
@@ -66,7 +66,7 @@ class CouponIndex extends Component {
       return (
         <CouponRow
           key={index}
-          id={coupon.serialNumber}
+          id={index}
           coupon={coupon}
           address={this.props.address}
           
