@@ -375,13 +375,25 @@
                 if(coupons[j].serialNumber==_tokenId)
                     index = j;
             }
-             
-            transfer(playerWinner, index);
+             _transfer(msg.sender, playerWinner, index);
+            //transfer(playerWinner, index);
             for(uint256 i = 0; i < couponsRaffle.length; i++){
                 if(couponsRaffle[i].serialNumber==_tokenId)
                     delete couponsRaffle[i];
             }
             return playerWinner;
+       }
+       
+         function sellToken(uint256 _tokenId, address _newOwner) public onlyCLevel {
+            require(tokenIdToOwner[_tokenId] == ceoAddress || tokenIdToOwner[_tokenId] == ceoAddress);
+
+             uint256 index;
+            for(uint256 j = 0; j < coupons.length; j++){
+                if(coupons[j].serialNumber==_tokenId)
+                    index = j;
+            }
+            _transfer(msg.sender, _newOwner, index);
+            delete coupons[index];
        }
        
        function getSummary() public view returns (

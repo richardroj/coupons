@@ -96,8 +96,8 @@ class CouponIndex extends Component {
               <HeaderCell>Description</HeaderCell>
               <HeaderCell>Serial Number</HeaderCell>
               <HeaderCell>Value</HeaderCell>
-              <HeaderCell>Approve</HeaderCell>
-              <HeaderCell>Finalize</HeaderCell>
+              <HeaderCell>Action</HeaderCell>
+              <HeaderCell>Action</HeaderCell>
             </Row>
           </Header>
           <Body>{this.renderRows()}</Body>
